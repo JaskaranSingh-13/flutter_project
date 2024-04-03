@@ -1,38 +1,27 @@
-// ignore_for_file: avoid_unnecessary_containers
-
 import 'package:flutter/material.dart';
+
+import 'package:flutter_project/screens/my_home_page.dart';
 
 void main() {
   runApp(const MainApp());
 }
 
-class MainApp extends StatelessWidget {
+class MainApp extends StatefulWidget {
   const MainApp({super.key});
-  final String name = 'Jaskaran Singh';
 
+  @override
+  State<MainApp> createState() => _MainAppState();
+}
+
+class _MainAppState extends State<MainApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: Scaffold(
-        body: Container(
-          decoration: const BoxDecoration(color: Colors.green),
-          child: const Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Image(
-                image: AssetImage("assets/images/bg.avif"),
-              ),
-              Center(
-                child: Padding(
-                  padding: EdgeInsets.only(left: 28.0),
-                  child: Text('Jaskaran Singh',
-                      style: TextStyle(color: Colors.yellow, fontSize: 22)),
-                ),
-              ),
-            ],
-          ),
-        ),
+      title: 'My First App',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
       ),
+      home: const MyHomePage(),
     );
   }
 }
