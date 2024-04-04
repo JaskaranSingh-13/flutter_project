@@ -9,17 +9,74 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List<Widget> imageList = [
+  /*List<Widget> imageList = [
     Image.asset('assets/images/backpacker.jpg', height: 150),
     Image.asset('assets/images/car.jpg', height: 150),
     Image.asset('assets/images/clouds.jpg', height: 150),
     Image.asset('assets/images/flowers.jpg', height: 150),
     Image.asset('assets/images/luis.jpg', height: 150),
     Image.asset('assets/images/tracks.jpg', height: 150),
-  ];
+  ];*/
 
   @override
   Widget build(BuildContext context) {
+    List<String> imageList = [
+      'assets/images/backpacker.jpg',
+      'assets/images/car.jpg',
+      'assets/images/clouds.jpg',
+      'assets/images/flowers.jpg',
+      'assets/images/luis.jpg',
+      'assets/images/tracks.jpg',
+    ];
+
+    // ignore: unused_local_variable
+    List<String> imageTitle = [
+      'backpacker',
+      'car',
+      'clouds',
+      'flowers',
+      'luis',
+      'tracks'
+    ];
+
+    // ignore: non_constant_identifier_names
+    double Width = MediaQuery.of(context).size.width;
+    // ignore: non_constant_identifier_names
+    double Height = MediaQuery.of(context).size.height;
+
+    // ignore: unused_local_variable
+    List<Widget> gridStuff = List.generate(6, (index) {
+      // ignore: sized_box_for_whitespace
+      return Container(
+        width: Width,
+        height: Height,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(4),
+          image: DecorationImage(
+            image: AssetImage(imageList[index]),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Center(
+          child: Text(
+            imageTitle[index],
+            style: TextStyle(
+              color: Colors.yellow,
+              fontSize: 25,
+              fontWeight: FontWeight.bold,
+              shadows: [
+                Shadow(
+                  blurRadius: 5,
+                  color: Colors.black.withOpacity(0.75),
+                  offset: const Offset(5, 5),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    });
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.cyan,
@@ -42,134 +99,24 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       drawer: const Drawer(),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: GridView.count(
-          mainAxisSpacing: 5,
-          shrinkWrap: true,
-          crossAxisCount: 2,
-          children: List.generate(6, (index) {
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                // ignore: sized_box_for_whitespace
-                Container(height: 200, child: imageList[index]),
-                imageList[index],
-              ],
-            );
-            /*return const Text(
-            'Hello World!',
-            textAlign: TextAlign.center,
-          );*/
-          }),
+      body: Container(
+        decoration: const BoxDecoration(
+          color: Colors.red,
+        ),
+        child: GridView.builder(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            mainAxisExtent: 240,
+          ),
+          itemCount: gridStuff.length,
+          itemBuilder: (BuildContext context, int index) {
+            return Column(children: [
+              // ignore: sized_box_for_whitespace
+              Container(height: 240, child: gridStuff[index]),
+            ]);
+          },
         ),
       ),
-      /*body: Center(
-        // ignore: sized_box_for_whitespace
-        child: Container(
-          height: 1200,
-          child: ListView(
-            //Padding(
-            padding: const EdgeInsets.all(140),
-            //child: ListView(
-            children: const [
-              ListTile(
-                leading: Text('Message'),
-              ),
-              ListTile(
-                leading: Text('Message'),
-              ),
-              ListTile(
-                leading: Text('Message'),
-              ),
-              ListTile(
-                leading: Text('Message'),
-              ),
-              ListTile(
-                leading: Text('Message'),
-              ),
-              ListTile(
-                leading: Text('Message'),
-              ),
-              ListTile(
-                leading: Text('Message'),
-              ),
-              ListTile(
-                leading: Text('Message'),
-              ),
-              ListTile(
-                leading: Text('Message'),
-              ),
-              ListTile(
-                leading: Text('Message'),
-              ),
-              ListTile(
-                leading: Text('Message'),
-              ),
-              ListTile(
-                leading: Text('Message'),
-              ),
-              ListTile(
-                leading: Text('Message'),
-              ),
-              ListTile(
-                leading: Text('Message'),
-              ),
-              ListTile(
-                leading: Text('Message'),
-              ),
-              ListTile(
-                leading: Text('Message'),
-              ),
-              ListTile(
-                leading: Text('Message'),
-              ),
-              ListTile(
-                leading: Text('Message'),
-              ),
-              ListTile(
-                leading: Text('Message'),
-              ),
-              ListTile(
-                leading: Text('Message'),
-              ),
-              ListTile(
-                leading: Text('Message'),
-              ),
-              ListTile(
-                leading: Text('Message'),
-              ),
-              ListTile(
-                leading: Text('Message'),
-              ),
-              ListTile(
-                leading: Text('Message'),
-              ),
-              ListTile(
-                leading: Text('Message'),
-              ),
-              ListTile(
-                leading: Text('Message'),
-              ),
-              ListTile(
-                leading: Text('Message'),
-              ),
-              ListTile(
-                leading: Text('Message'),
-              ),
-            ],
-          ),
-        ),
-      ),
-      /*decoration: const BoxDecoration(
-          color: Colors.cyan,
-          image: DecorationImage(
-            image: AssetImage('assets/images/bg.avif'),
-            scale: 0.1,
-            alignment: Alignment.topCenter,
-          ),
-        ),*/
-*/
       bottomNavigationBar: BottomNavigationBar(
         items: const [
           BottomNavigationBarItem(
@@ -193,3 +140,10 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
+/*&class Gridview {
+  static builder(
+      {required SliverGridDelegateWithFixedCrossAxisCount gridDelegate,
+      required itemCount,
+      required Null Function(BuildContext context, int index) itemBuildar}) {}
+}*/
