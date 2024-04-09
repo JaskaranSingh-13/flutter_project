@@ -26,8 +26,8 @@ class _MainAppState extends State<MainApp> {
       home: const MyHomePage(),
       initialRoute: '/',
       routes: {
-        '/settings': (context) => Settings(),
-        '/profile': (context) => Profile(),      
+        '/settings': (context) => const Settings(),
+        '/profile': (context) => const Profile(),      
         }
     );
   }

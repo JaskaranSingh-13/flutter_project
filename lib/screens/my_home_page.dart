@@ -29,7 +29,6 @@ class _MyHomePageState extends State<MyHomePage> {
       'assets/images/tracks.jpg',
     ];
 
-    // ignore: unused_local_variable
     List<String> imageTitle = [
       'backpacker',
       'car',
@@ -80,67 +79,126 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.cyan,
-        title: const Row(
+        title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
+            const Text(
               'Home Page',
               style: TextStyle(fontWeight: FontWeight.w900),
             ),
-            SizedBox(
+            const SizedBox(
               width: 100,
             ),
-            ElevatedButton(
-              onPressed: null,
-              child: Icon(Icons.notification_add, color: Colors.white),
+            //ElevatedButton(
+            //onPressed: null,
+            TextButton(
+              onPressed: () {
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text('Alert'),
+                        content: const Text('This is an alert dialog.'),
+                        actions: [
+                          TextButton(
+                            child: const Text('OK'),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          )
+                        ],
+                      );
+                    });
+              },
+              child: const Icon(Icons.notification_add, color: Colors.white),
             ),
-            Icon(Icons.settings, color: Colors.white),
+            const Icon(Icons.settings),
           ],
         ),
       ),
-      drawer: const Drawer(),
-      body: Container(
-        decoration: const BoxDecoration(
-          color: Colors.red,
+    );
+
+    // ignore: dead_code
+    Drawer(
+        child: ListView(
+      children: <Widget>[
+        ListTile(
+          leading: const Icon(Icons.home),
+          title: const Text('Home'),
+          onTap: () {
+            Navigator.pushNamed(context, '/');
+          },
         ),
-        child: GridView.builder(
+        ListTile(
+          leading: const Icon(Icons.settings),
+          title: const Text('Settings'),
+          onTap: () {
+            Navigator.pushNamed(context, '/settings');
+          },
+        ),
+        ListTile(
+          leading: const Icon(Icons.person),
+          title: const Text('Profile'),
+          onTap: () {
+            Navigator.pushNamed(context, '/profile');
+          },
+        ),
+      ],
+    ));
+    Container(
+      decoration: const BoxDecoration(
+        color: Colors.red,
+      ),
+      child: GridView.builder(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             mainAxisExtent: 240,
           ),
           itemCount: gridStuff.length,
           itemBuilder: (BuildContext context, int index) {
-            return Column(children: [
-              // ignore: sized_box_for_whitespace
-              Container(height: 240, child: gridStuff[index]),
-            ]);
-          },
-        ),
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const [
-          BottomNavigationBarItem(
-              backgroundColor: Colors.green,
-              icon: Icon(Icons.home),
-              label: 'Home'),
-          BottomNavigationBarItem(
-              backgroundColor: Colors.green,
-              icon: Icon(Icons.search),
-              label: 'Search'),
-          BottomNavigationBarItem(
-              backgroundColor: Colors.green,
-              icon: Icon(Icons.settings),
-              label: 'Settings'),
-          BottomNavigationBarItem(
-              backgroundColor: Colors.green,
-              icon: Icon(Icons.person),
-              label: 'Profile'),
-        ],
-      ),
+            return Column(
+              children: [
+                // ignore: sized_box_for_whitespace
+                Container(height: 240, child: gridStuff[index]),
+              ],
+            );
+          }),
+    );
+    BottomNavigationBar(
+      showUnselectedLabels: true,
+      currentIndex: 0,
+      items: const [
+        BottomNavigationBarItem(
+            backgroundColor: Colors.red, icon: Icon(Icons.home), label: 'Home'),
+        BottomNavigationBarItem(
+            backgroundColor: Colors.red,
+            icon: Icon(Icons.search),
+            label: 'Search'),
+        BottomNavigationBarItem(
+            backgroundColor: Colors.red,
+            icon: Icon(Icons.settings),
+            label: 'Settings'),
+        BottomNavigationBarItem(
+            backgroundColor: Colors.red,
+            icon: Icon(Icons.person),
+            label: 'Profile'),
+      ],
+      onTap: (int index) {
+        switch (index) {
+          case 0:
+            Navigator.pushNamed(context, '/');
+            break;
+          case 2:
+            Navigator.pushNamed(context, '/settings');
+            break;
+          case 3:
+            Navigator.pushNamed(context, '/profile');
+            break;
+        }
+      },
     );
   }
 }
-
 /*&class Gridview {
   static builder(
       {required SliverGridDelegateWithFixedCrossAxisCount gridDelegate,
